@@ -27,7 +27,7 @@ class PostUpdateView(UpdateView):
     model = Post
     fields = ["title", "subtitle", "body", "status"]
     
-class PostDelteView(DeleteView):
+class PostDeleteView(DeleteView):
     template_name = "posts/delete.html"
     model = Post
     success_url = reverse_lazy("list")
