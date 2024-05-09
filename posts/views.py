@@ -9,6 +9,7 @@ from django.views.generic import(
 )
 
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post
 
 class PostListView(ListView):
@@ -19,7 +20,7 @@ class PostDetailView(DetailView):
     template_name = "post/detail.html"
     model = Post
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin,CreateView):
     template_name = "posts/new.html"
     model = Post
     fields = ["title", "subtitle", "author", "body", "status"]
