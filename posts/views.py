@@ -9,7 +9,7 @@ from django.views.generic import(
 )
 
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
 
 class PostListView(ListView):
