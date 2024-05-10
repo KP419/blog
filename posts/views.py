@@ -43,6 +43,16 @@ class DraftPostListView(ListView):
         )
         return context
 
+class ArchivedPostListView(LoginRequiredMixin,ListView):
+    template_name = "posts/list.html"
+    model = Post
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        archived_status = Status.objects.get(name="archive")
+        context["post_list"]= (
+            
+        )
 
 class PostDetailView(DetailView):
     template_name = "posts/detail.html"
