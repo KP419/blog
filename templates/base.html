@@ -29,23 +29,28 @@
                             Dropdown
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'about' %}">About</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'new' %}">New Post</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="{% url 'about' %}">About</a>
+                            </li>
                             {% if user.is_authenticated %}
-                            <a class="nav-link " href="{% url 'password_change' %}" >Change Password</a>
-                            <form  method="POST" action="{% url 'logout' %}">
-                            {% csrf_token %}
-                            <input type="submit" class="nav-link " value="Log Out">
+                            <form method="POST" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <input type="submit" class="nav-link" value="Log Out" />
                             </form>
                             {% else %}
                             <a class="nav-link" href="{% url 'login' %}">Login</a>
                             {% endif %}
-                            <li><a class="dropdown-item" href="{% url 'list' %}">Post</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'list' %}">Post</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'new' %}">New Post</a>
-                            </li>
+                            <a class="nav-link" href="{% url 'password_change' %}">Change Password</a>
                         </ul>
                     </li>
                 </ul>
