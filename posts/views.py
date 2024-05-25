@@ -6,6 +6,7 @@ from django.views.generic import (
     CreateView,
     DeleteView,
     UpdateView,
+    
 )
 
 from django.urls import reverse_lazy
@@ -49,14 +50,28 @@ class ArchivedPostListView(LoginRequiredMixin,ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        archived_status = Status.objects.get(name="archive")
-        context["post_list"]= (
-            
+        archived_status = Status.objects.get(name="archived")
+        context["post_list"]= ( 
+            Post.objects.filter(status=archived_status)
+            .order_by("created_on")
+            .reverse()
         )
+        return context
 
-class PostDetailView(DetailView):
+class PostDetailView(UserPassesTestMixin,DetailView):
     template_name = "posts/detail.html"
     model = Post
+    
+    def test_func(self):
+        post = self.get_object()
+        if post.status.name == "published":
+            return True
+        else: 
+            if post.status.name == "draft":
+                return post.author == self.request.user
+            elif post.status.name == "archived":
+                if self.request.user:
+                    return True
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
